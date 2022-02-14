@@ -50,7 +50,7 @@ function setBackGroundGreeting() {
   let today = new Date(),
     hour = today.getHours();
 
-  if (hour < 12) {
+  if (hour > 3 && hour < 12) {
     // Morning
     document.body.style.background = "url(../img/morning.jpg) no-repeat";
     greeting.textContent = "Good Morning";
@@ -159,3 +159,88 @@ function setTime() {
     showTime();
   }, 0);
 }
+
+window.addEventListener("load", () => {
+  let long; // высота
+  let lat; // широта
+  let lang; // language
+  let temperatureDescription = document.querySelector(
+    ".temperature-description"
+  );
+  let temperatureDegree = document.querySelector(".temperature-degree");
+  let locationTimeZone = document.querySelector(".location-timezone");
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      long = position.coords.longitude;
+      lat = position.coords.latitude;
+      lang = "en"; //ru
+      const api = `http://api.weatherapi.com/v1/current.json?key=b76b0a3174694eddb11162855221402&q=${lat},${long}&aqi=no&lang=${lang}`;
+
+      fetch(api)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          const { temp_c, condition } = data.current;
+          const { tz_id } = data.location;
+          // Set DOM elements from API
+          temperatureDegree.textContent = temp_c;
+          temperatureDescription.textContent = condition.text;
+          locationTimeZone.textContent = tz_id.slice(tz_id.indexOf("/") + 1);
+
+          /////////////////////////////
+          if (condition.text.length > 10) {
+            temperatureDescription.style.textAlign = "right";
+          }
+          if (condition.text.length > 30) {
+            temperatureDescription.style.width = "90px";
+            document.querySelector(".degree-section").style.width = "90px";
+          }
+          console.log(locationTimeZone.textContent);
+          if (locationTimeZone.textContent.length > 7) {
+            locationTimeZone.style.fontSize = "0.85rem";
+            temperatureDescription.style.paddingTop = "4px";
+            locationTimeZone.style.width = "auto";
+            locationTimeZone.style.maxWidth = "110px";
+          }
+          ////////////////////////////
+
+          // Set Icon
+          document.querySelector(".icon").src = condition.icon;
+        });
+    });
+  }
+
+  //   function setIcons(icon, iconID) {
+  //     const skycons = new Skycons({ color: "white" });
+  //     const currentIcon = icon.replaceAll(" ", "_").toUpperCase() + "_DAY";
+  //     console.log(currentIcon);
+  //     skycons.play;
+  //     return skycons.set(iconID, skycons[currentIcon]);
+  //   }
+});
+
+///////////////////////////////////////////
+
+// var options = {
+//   enableHighAccuracy: true,
+//   timeout: 5000,
+//   maximumAge: 0,
+// };
+
+// function success(pos) {
+//   var crd = pos.coords;
+
+//   console.log("Ваше текущее местоположение:");
+//   console.log(`Широта: ${crd.latitude}`);
+//   console.log(`Долгота: ${crd.longitude}`);
+//   console.log(`Плюс-минус ${crd.accuracy} метров.`);
+// }
+
+// function error(err) {
+//   console.warn(`ERROR(${err.code}): ${err.message}`);
+// }
+
+// navigator.geolocation.getCurrentPosition(success, error, options);
