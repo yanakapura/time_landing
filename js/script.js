@@ -9,11 +9,24 @@ const time = document.querySelector("#time"),
   label24h = window.getComputedStyle(
     document.querySelector(".switch-button"),
     ":before"
-  );
+  ),
+  temperatureDescription = document.querySelector(".temperature-description"),
+  temperatureDegree = document.querySelector(".temperature-degree"),
+  locationTimeZone = document.querySelector(".location-timezone"),
+  temperatureDescription_1 = document.querySelector(
+    ".temperature-description-big"
+  ),
+  temperatureDegree_1 = document.querySelector(".temperature-degree-big"),
+  locationTimeZone_1 = document.querySelector(".location-timezone-big");
 
 // Options
 let showAmPm = true;
 let timeType; //= true; // true = 24 hours, false = 12 hours
+let timeZone;
+let feelsLike;
+let wind;
+let airHumidity;
+let pressure;
 
 // Show the time
 function showTime() {
@@ -68,6 +81,8 @@ function setBackGroundGreeting() {
     greeting.textContent = "Good Evening";
     document.body.style.color = "white";
   }
+
+  setTimeout(setBackGroundGreeting, 1000 * 60 * 60);
 }
 
 // Get Name
@@ -140,6 +155,7 @@ getName();
 getFocus();
 getTimeType();
 setTime();
+setWeather();
 
 function setTime() {
   setTimeout(function () {
@@ -160,15 +176,13 @@ function setTime() {
   }, 0);
 }
 
-window.addEventListener("load", () => {
+// window.addEventListener("load", setWeather);
+
+function setWeather() {
+  // weatherapi.com
   let long; // высота
   let lat; // широта
   let lang; // language
-  let temperatureDescription = document.querySelector(
-    ".temperature-description"
-  );
-  let temperatureDegree = document.querySelector(".temperature-degree");
-  let locationTimeZone = document.querySelector(".location-timezone");
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -183,64 +197,81 @@ window.addEventListener("load", () => {
         })
         .then((data) => {
           console.log(data);
-          const { temp_c, condition } = data.current;
+          const {
+            temp_c,
+            condition,
+            feelslike_c,
+            wind_kph,
+            humidity,
+            pressure_mb,
+          } = data.current;
           const { tz_id } = data.location;
           // Set DOM elements from API
           temperatureDegree.textContent = temp_c;
+          // condition.text = "qqqqq qqq rtk,g rllvl qqq qqqq qqq";
           temperatureDescription.textContent = condition.text;
           locationTimeZone.textContent = tz_id.slice(tz_id.indexOf("/") + 1);
+          timeZone = tz_id;
+          console.log(timeZone);
+          // Set Icon
+          document.querySelector(".icon").src = condition.icon;
+          ///////////////////////////
+          feelsLike = feelslike_c;
+          wind = wind_kph;
+          airHumidity = humidity;
+          pressure = Math.round(pressure_mb / 1.3332239);
 
           /////////////////////////////
           if (condition.text.length > 10) {
             temperatureDescription.style.textAlign = "right";
           }
-          if (condition.text.length > 30) {
-            temperatureDescription.style.width = "90px";
-            document.querySelector(".degree-section").style.width = "90px";
+          if (condition.text.length > 25) {
+            temperatureDescription.style.width = "100px";
+            document.querySelector(".degree-section").style.width = "100px";
           }
-          console.log(locationTimeZone.textContent);
           if (locationTimeZone.textContent.length > 7) {
-            locationTimeZone.style.fontSize = "0.85rem";
             temperatureDescription.style.paddingTop = "4px";
             locationTimeZone.style.width = "auto";
-            locationTimeZone.style.maxWidth = "110px";
+            locationTimeZone.style.maxWidth = "200px";
           }
           ////////////////////////////
-
-          // Set Icon
-          document.querySelector(".icon").src = condition.icon;
         });
     });
   }
 
-  //   function setIcons(icon, iconID) {
-  //     const skycons = new Skycons({ color: "white" });
-  //     const currentIcon = icon.replaceAll(" ", "_").toUpperCase() + "_DAY";
-  //     console.log(currentIcon);
-  //     skycons.play;
-  //     return skycons.set(iconID, skycons[currentIcon]);
-  //   }
+  setTimeout(setWeather, 1000 * 60 * 60 * 3);
+}
+
+function setWeatherBig() {
+  temperatureDegree_1.textContent = temperatureDegree.textContent;
+  temperatureDescription_1.textContent = temperatureDescription.textContent;
+  locationTimeZone_1.textContent = timeZone.replace("/", ", ");
+  document.querySelector(".icon-big").src = document.querySelector(".icon").src;
+  document.querySelector(".feels-like").textContent = feelsLike;
+  document.querySelector(".wind").textContent = wind;
+  document.querySelector(".humidity").textContent = airHumidity;
+  document.querySelector(".pressure").textContent = pressure;
+}
+
+document.querySelector(".weather").addEventListener("click", () => {
+  setWeatherBig();
+  document.querySelector(".weather").style.display = "none";
+  document.querySelector("#weather-big").style.display = "block";
+  document.querySelector("#weather-big").style.width = "30%";
+  document.querySelector("#weather-big").style.height = "27%";
+  const hiddenArr = [...document.querySelectorAll(".hidden")];
+  hiddenArr.forEach((el) => (el.style.display = "block"));
+  const hiddenFlexArr = [...document.querySelectorAll(".hidden-flex")];
+  hiddenFlexArr.forEach((el) => (el.style.display = "flex"));
+
+  // console.log((document.querySelectorAll(".hidden").style.display = "block"));
+  // document.querySelectorAll(".hidden").style.opacity = "1";
+});
+document.querySelector("#weather-big").addEventListener("click", () => {
+  document.querySelector("#weather-big").style.display = "none";
+  document.querySelector(".weather").style.display = "block";
+  // document.querySelectorAll(".hidden").style.display = "none";
+  // document.querySelectorAll(".hidden").style.display = "none";
 });
 
-///////////////////////////////////////////
-
-// var options = {
-//   enableHighAccuracy: true,
-//   timeout: 5000,
-//   maximumAge: 0,
-// };
-
-// function success(pos) {
-//   var crd = pos.coords;
-
-//   console.log("Ваше текущее местоположение:");
-//   console.log(`Широта: ${crd.latitude}`);
-//   console.log(`Долгота: ${crd.longitude}`);
-//   console.log(`Плюс-минус ${crd.accuracy} метров.`);
-// }
-
-// function error(err) {
-//   console.warn(`ERROR(${err.code}): ${err.message}`);
-// }
-
-// navigator.geolocation.getCurrentPosition(success, error, options);
+// wait();

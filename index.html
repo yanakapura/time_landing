@@ -15,14 +15,17 @@
     <title>Welcome</title>
   </head>
   <body>
-    <time id="time"></time>
-    <h1>
-      <span id="greeting"></span>
-      <span id="name" contenteditable="true"></span>
-    </h1>
 
-    <h2>What is your focus for today?</h2>
-    <h2 id="focus" contenteditable="true"></h2>
+    <div class="time-section">
+      <time id="time"></time>
+      <h1>
+        <span id="greeting"></span>
+        <span id="name" contenteditable="true"></span>
+      </h1>
+
+      <h2>What is your focus for today?</h2>
+      <h2 id="focus" contenteditable="true"></h2>
+    </div>
 
     <div class="switch-button">
       <input class="switch-button-checkbox" type="checkbox"></input>
@@ -34,17 +37,54 @@
         <div class="icon-section">
           <img class="icon"></img>
         </div>
-        <div class="degree-section">
-          <h1 class="temperature-degree">34</h1>
+        <div class="degree-section flex-center">
+          <h1 class="temperature-degree"></h1>
           <span>°</span>
         </div>
       </div>
       <div class="location">
-        <p class="location-timezone">Timezone</p>
-        <p class="temperature-description">its friggin cold</p>
+        <p class="location-timezone"></p>
+        <p class="temperature-description"></p>
       </div>
     </div>
 
+    <div  id="weather-big" class="flex-center">
+      <div class="location-big flex-center">
+        <p class="location-timezone-big"></p>
+      </div>
+      <div class="temperature-section-big flex-center">
+        <div class="temperature-degree-section flex-center">
+          <h1 class="temperature-degree-big"></h1>
+          <span class="hidden">°C</span>
+        </div>
+        <div class="icon-section-big flex-center">
+          <img class="icon-big"></img>
+        </div>
+        <p class="temperature-description-big"></p>
+      </div>
+      <div class="weather-niceties flex-center">
+        <div class="feels-like-section flex-center">
+          <p class="hidden">Fills Like
+          <span class="feels-like"></span>°</p>
+        </div>
+        <div class="wind-section hidden-flex flex-center">
+          <i class='fas fa-wind'></i>
+          <p><span class="wind"></span>km/h</p>
+        </div>
+        <div class="humidity-section hidden-flex flex-center">
+          <i class="fas fa-droplet"></i>
+          <p><span class="humidity"></span>%</p>
+        </div>
+        <div class="pressure-section hidden-flex flex-center">
+          <i class="fas fa-thermometer-three-quarters"></i>
+          <p><span class="pressure"></span>mm</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <script src='https://kit.fontawesome.com/a076d05399.js' 
+    crossorigin='anonymous'></script> -->
+    <script src="https://kit.fontawesome.com/d84c4d6b5b.js" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
