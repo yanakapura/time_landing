@@ -174,9 +174,9 @@ div.degree-section {
 }
 
 .icon {
-  height: 56px;
+  height: 50px;
   width: auto;
-  transform: translate(0px, -3px);
+  transform: translate(0px, 1px);
 }
 
 .location-timezone {
@@ -272,6 +272,18 @@ i {
   padding-right: 5px;
 }
 
+.music {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+#video {
+  display: none;
+}
 /* 
 .location {
   height: auto;

@@ -17,7 +17,9 @@ const time = document.querySelector("#time"),
     ".temperature-description-big"
   ),
   temperatureDegree_1 = document.querySelector(".temperature-degree-big"),
-  locationTimeZone_1 = document.querySelector(".location-timezone-big");
+  locationTimeZone_1 = document.querySelector(".location-timezone-big"),
+  music = document.querySelector(".music"),
+  volumeIcon = document.getElementById("volume-icon");
 
 // Options
 let showAmPm = true;
@@ -82,7 +84,7 @@ function setBackGroundGreeting() {
     document.body.style.color = "white";
   }
 
-  setTimeout(setBackGroundGreeting, 1000 * 60 * 60);
+  setTimeout(setBackGroundGreeting, 1000 * 60);
 }
 
 // Get Name
@@ -222,7 +224,7 @@ function setWeather() {
           pressure = Math.round(pressure_mb / 1.3332239);
 
           /////////////////////////////
-          if (condition.text.length > 10) {
+          if (condition.text.length > 15) {
             temperatureDescription.style.textAlign = "right";
           }
           if (condition.text.length > 25) {
@@ -274,4 +276,56 @@ document.querySelector("#weather-big").addEventListener("click", () => {
   // document.querySelectorAll(".hidden").style.display = "none";
 });
 
-// wait();
+// global variable for the player
+var player;
+
+// this function gets called when API is ready to use
+function onYouTubePlayerAPIReady() {
+  // create the global player from the specific iframe (#video)
+  player = new YT.Player("video", {
+    events: {
+      // call this function when player is ready to use
+      onReady: onPlayerReady,
+    },
+  });
+}
+
+// function onPlayerReady(event) {
+//   // bind events
+//   // var playButton = document.getElementsByClassName("fa-volume-mute");
+//   music.addEventListener("click", function () {
+//     // player.playVideo();
+//   });
+
+//   var pauseButton = document.getElementById("pause");
+//   pauseButton.addEventListener("click", function () {
+//     player.pauseVideo();
+//   });
+
+//   var stopButton = document.getElementById("stop");
+//   stopButton.addEventListener("click", function () {
+//     player.stopVideo();
+//   });
+// }
+
+// Inject YouTube API script
+var tag = document.createElement("script");
+tag.src = "https://www.youtube.com/player_api";
+var firstScriptTag = document.getElementsByTagName("script")[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+function onPlayerReady() {
+  music.addEventListener("click", musicClick);
+}
+
+function musicClick() {
+  if (
+    document.getElementById("volume-icon").classList.contains("fa-volume-up")
+  ) {
+    volumeIcon.classList.replace("fa-volume-up", "fa-volume-mute");
+    player.pauseVideo(); //stopVideo
+  } else {
+    volumeIcon.classList.replace("fa-volume-mute", "fa-volume-up");
+    player.playVideo();
+  }
+}
