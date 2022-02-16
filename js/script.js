@@ -19,7 +19,13 @@ const time = document.querySelector("#time"),
   temperatureDegree_1 = document.querySelector(".temperature-degree-big"),
   locationTimeZone_1 = document.querySelector(".location-timezone-big"),
   music = document.querySelector(".music"),
-  volumeIcon = document.getElementById("volume-icon");
+  volumeIcon = document.getElementById("volume-icon"),
+  todoInput = document.querySelector(".todo-input"),
+  todoButton = document.querySelector(".todo-button"),
+  todoList = document.querySelector(".todo-list"),
+  todoListContainer = document.querySelector(".todo-list-contaiter"),
+  todoIcon = document.querySelector(".task-icon"),
+  filterOption = document.querySelector(".filter-todo");
 
 // Options
 let showAmPm = true;
@@ -29,6 +35,12 @@ let feelsLike;
 let wind;
 let airHumidity;
 let pressure;
+var player;
+// Inject YouTube API script
+var tag = document.createElement("script");
+tag.src = "https://www.youtube.com/player_api";
+var firstScriptTag = document.getElementsByTagName("script")[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 // Show the time
 function showTime() {
@@ -150,6 +162,10 @@ switchButton.addEventListener("click", setTime);
 switchButton.addEventListener("click", (e) =>
   localStorage.setItem("timeType", e.target.checked)
 );
+todoButton.addEventListener("click", addTodo);
+todoList.addEventListener("click", deleteCheck);
+todoIcon.addEventListener("click", showTodo);
+filterOption.addEventListener("click", filterTodo);
 
 showTime();
 setBackGroundGreeting();
@@ -259,8 +275,6 @@ document.querySelector(".weather").addEventListener("click", () => {
   setWeatherBig();
   document.querySelector(".weather").style.display = "none";
   document.querySelector("#weather-big").style.display = "block";
-  document.querySelector("#weather-big").style.width = "30%";
-  document.querySelector("#weather-big").style.height = "27%";
   const hiddenArr = [...document.querySelectorAll(".hidden")];
   hiddenArr.forEach((el) => (el.style.display = "block"));
   const hiddenFlexArr = [...document.querySelectorAll(".hidden-flex")];
@@ -275,9 +289,6 @@ document.querySelector("#weather-big").addEventListener("click", () => {
   // document.querySelectorAll(".hidden").style.display = "none";
   // document.querySelectorAll(".hidden").style.display = "none";
 });
-
-// global variable for the player
-var player;
 
 // this function gets called when API is ready to use
 function onYouTubePlayerAPIReady() {
@@ -308,12 +319,6 @@ function onYouTubePlayerAPIReady() {
 //   });
 // }
 
-// Inject YouTube API script
-var tag = document.createElement("script");
-tag.src = "https://www.youtube.com/player_api";
-var firstScriptTag = document.getElementsByTagName("script")[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
 function onPlayerReady() {
   music.addEventListener("click", musicClick);
 }
@@ -328,4 +333,87 @@ function musicClick() {
     volumeIcon.classList.replace("fa-volume-mute", "fa-volume-up");
     player.playVideo();
   }
+}
+
+function showTodo() {
+  todoIcon.classList.toggle("hidden");
+  todoListContainer.classList.toggle("hidden");
+}
+
+function addTodo(e) {
+  e.preventDefault();
+
+  if (todoInput.value !== "") {
+    // Todo div
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+
+    // Create li
+    const newTodo = document.createElement("li");
+    newTodo.innerText = todoInput.value;
+    newTodo.classList.add("todo-item");
+    todoDiv.appendChild(newTodo);
+
+    // Check mark button
+    const completedButton = document.createElement("button");
+    completedButton.innerHTML = "<i class='fas fa-check'></i>";
+    completedButton.classList.add("complete-btn");
+    todoDiv.appendChild(completedButton);
+
+    // Check trash button
+    const trashButton = document.createElement("button");
+    trashButton.innerHTML = "<i class='fas fa-trash'></i>";
+    trashButton.classList.add("trash-btn");
+    todoDiv.appendChild(trashButton);
+
+    // Append to list
+    todoList.appendChild(todoDiv);
+
+    // Clear todo input value
+    todoInput.value = "";
+  }
+}
+
+function deleteCheck(e) {
+  const item = e.target;
+  const todo = item.parentElement;
+  // Delete todo
+  if (item.classList.contains("trash-btn")) {
+    todo.classList.add("fall");
+    todo.addEventListener("transitionend", () => {
+      todo.remove();
+    });
+  }
+
+  // check mark
+  if (item.classList.contains("complete-btn")) {
+    todo.classList.toggle("completed");
+  }
+}
+
+function filterTodo(e) {
+  const todos = [...todoList.childNodes].slice(1);
+  // console.log(todos);
+  todos.forEach((todo) => {
+    switch (e.target.value) {
+      case "all":
+        todo.style.display = "flex";
+        break;
+      case "completed":
+        if (todo.classList.contains("completed")) {
+          todo.style.display = "flex";
+        } else {
+          todo.style.display = "none";
+        }
+        break;
+
+      case "uncompleted":
+        if (!todo.classList.contains("completed")) {
+          todo.style.display = "flex";
+        } else {
+          todo.style.display = "none";
+        }
+        break;
+    }
+  });
 }
