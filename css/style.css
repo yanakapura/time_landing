@@ -5,8 +5,6 @@
 }
 
 body {
-  /* font-family: "Quicksand", sans-serif; */
-  /* font-family: "Montserrat", sans-serif; */
   font-family: "Zen Kaku Gothic Antique", sans-serif;
   display: flex;
   flex-direction: column;
@@ -16,6 +14,9 @@ body {
   height: 100vh;
   color: black;
   /* color: white; */
+
+  scrollbar-width: 5px;
+  scrollbar-color: rgba(128, 128, 128, 0.5) rgba(224, 224, 224, 0.719);
 }
 
 #time {
@@ -31,6 +32,11 @@ h2 {
   opacity: 0.6;
 
   /* font-family: "Quicksand", sans-serif; */
+}
+
+#focus {
+  width: fit-content;
+  margin: 0 auto;
 }
 
 #name:focus,
@@ -236,7 +242,8 @@ p.temperature-description {
   justify-content: space-around;
 }
 .hidden,
-.hidden-flex {
+.hidden-flex,
+.hidden-todo {
   display: none;
   /* opacity: 0; */
 }
@@ -306,6 +313,10 @@ p.temperature-description {
   position: absolute;
   bottom: 15px;
   right: 20px;
+  /* max-height: 285px; */
+
+  /* overflow: auto; */
+  /* transition: transform 0.1s ease-in; */
 }
 
 .task-icon {
@@ -341,25 +352,39 @@ p.temperature-description {
   color: black;
   /* display: none; */
 }
-/* 
-.task {
-  text-align: start;
-  height: 35px;
-  width: 270px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 15px;
-  padding: 0 15px;
+
+.todo-close {
+  background-color: transparent;
+  height: 45px;
+  width: 2.1rem;
+  margin: 0 auto;
+  color: rgb(255, 255, 255, 0.9);
+  border-radius: 20px;
+
+  transform: translateX(0.5rem);
+  transform: translateY(70px);
+  transition: all 0.2s ease-out;
 }
 
-.task i {
-  width: 10%;
-  text-align: end;
+.todo-close-section {
+  height: 58px;
+  overflow: hidden;
 }
 
-.task-text {
-  margin: auto 0;
-  width: 80%;
-} */
+.todo-close-container {
+  height: 100px;
+}
+
+.todo-close::after {
+  cursor: pointer;
+  content: "\00D7";
+  position: absolute;
+  font-size: 2rem;
+}
+
+.up {
+  transform: translateY(5px);
+}
 
 form {
   /* background-color: white; */
@@ -380,7 +405,7 @@ form button {
   font-family: inherit;
   border: none;
   /* background: transparent; */
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.99);
 }
 
 form input:active,
@@ -417,15 +442,30 @@ form input:focus {
 }
 
 .todo-list {
-  min-width: 30%;
+  /* min-width: 30%; */
   list-style: none;
   margin-top: 5px;
+
+  max-height: 244px;
+  overflow: auto;
+}
+
+.todo-list::-webkit-scrollbar {
+  width: 5px;
+}
+.todo-list::-webkit-scrollbar-track {
+  background: rgba(128, 128, 128, 0.459);
+  border-radius: 20px;
+}
+.todo-list::-webkit-scrollbar-thumb {
+  background-color: rgba(224, 224, 224, 0.719);
+  border-radius: 20px;
 }
 
 .todo {
   width: 300px;
   margin: 0.5rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.8);
   /* color: black; */
   border-radius: 12px;
 
@@ -479,7 +519,7 @@ select {
   color: inherit;
   margin-left: 0.3rem;
   margin-right: 10px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.75);
   height: 36px;
   width: 113px;
   padding: 5px;
@@ -509,7 +549,7 @@ select {
   font-weight: 600;
   pointer-events: none;
   position: absolute;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in;
 }
 
 .select:hover::after {

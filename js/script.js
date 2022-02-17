@@ -22,7 +22,9 @@ const time = document.querySelector("#time"),
   volumeIcon = document.getElementById("volume-icon"),
   todoInput = document.querySelector(".todo-input"),
   todoButton = document.querySelector(".todo-button"),
+  todoCloseBtn = document.querySelector(".todo-close"),
   todoList = document.querySelector(".todo-list"),
+  todoListSection = document.querySelector(".todo-list-section"),
   todoListContainer = document.querySelector(".todo-list-contaiter"),
   todoIcon = document.querySelector(".task-icon"),
   filterOption = document.querySelector(".filter-todo");
@@ -53,9 +55,10 @@ function showTime() {
   const amPm = hour >= 12 ? "PM" : "AM"; // hour по дефолту 0-23ч
 
   if (timeType == false) {
-    // 12hr Format
+    hour = addZero(hour);
     showAmPm = false;
   } else {
+    // 12hr Format
     hour = hour % 12 || 12;
   }
 
@@ -77,15 +80,15 @@ function setBackGroundGreeting() {
   let today = new Date(),
     hour = today.getHours();
 
-  if (hour > 3 && hour < 12) {
+  if (hour >= 4 && hour < 12) {
     // Morning
     document.body.style.background = "url(../img/morning.jpg) no-repeat";
     greeting.textContent = "Good Morning";
-  } else if (hour < 16) {
+  } else if (hour >= 12 && hour < 16) {
     // Afternoon
     document.body.style.background = "url(../img/day.jpg) no-repeat top/100%";
     greeting.textContent = "Good Afternoon";
-  } else if (hour < 20) {
+  } else if (hour >= 16 && hour < 20) {
     // Evening
     document.body.style.background =
       "url(../img/evening.jpg) no-repeat top/100%";
@@ -162,10 +165,22 @@ switchButton.addEventListener("click", setTime);
 switchButton.addEventListener("click", (e) =>
   localStorage.setItem("timeType", e.target.checked)
 );
+todoIcon.addEventListener("click", showCloseTodo);
+todoCloseBtn.addEventListener("click", showCloseTodo);
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
-todoIcon.addEventListener("click", showTodo);
 filterOption.addEventListener("click", filterTodo);
+
+document
+  .querySelector(".todo-close-section")
+  .addEventListener("mouseover", () => {
+    todoCloseBtn.classList.add("up");
+  });
+document
+  .querySelector(".todo-close-section")
+  .addEventListener("mouseleave", () => {
+    todoCloseBtn.classList.remove("up");
+  });
 
 showTime();
 setBackGroundGreeting();
@@ -174,17 +189,16 @@ getFocus();
 getTimeType();
 setTime();
 setWeather();
+setTodos();
 
 function setTime() {
   setTimeout(function () {
     if (chechbox.checked) {
-      console.log("checked");
       label12h.style.color = "rgb(146, 146, 146)";
       switchButton.style.color = "black";
       showAmPm = false;
       timeType = false;
     } else {
-      console.log("none");
       label12h.style.color = "black";
       switchButton.style.color = "rgb(146, 146, 146)";
       showAmPm = true;
@@ -301,24 +315,6 @@ function onYouTubePlayerAPIReady() {
   });
 }
 
-// function onPlayerReady(event) {
-//   // bind events
-//   // var playButton = document.getElementsByClassName("fa-volume-mute");
-//   music.addEventListener("click", function () {
-//     // player.playVideo();
-//   });
-
-//   var pauseButton = document.getElementById("pause");
-//   pauseButton.addEventListener("click", function () {
-//     player.pauseVideo();
-//   });
-
-//   var stopButton = document.getElementById("stop");
-//   stopButton.addEventListener("click", function () {
-//     player.stopVideo();
-//   });
-// }
-
 function onPlayerReady() {
   music.addEventListener("click", musicClick);
 }
@@ -335,43 +331,47 @@ function musicClick() {
   }
 }
 
-function showTodo() {
-  todoIcon.classList.toggle("hidden");
-  todoListContainer.classList.toggle("hidden");
+function showCloseTodo() {
+  todoIcon.classList.toggle("hidden-todo");
+  todoListContainer.classList.toggle("hidden-todo");
 }
 
 function addTodo(e) {
   e.preventDefault();
 
   if (todoInput.value !== "") {
-    // Todo div
-    const todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo");
-
-    // Create li
-    const newTodo = document.createElement("li");
-    newTodo.innerText = todoInput.value;
-    newTodo.classList.add("todo-item");
-    todoDiv.appendChild(newTodo);
-
-    // Check mark button
-    const completedButton = document.createElement("button");
-    completedButton.innerHTML = "<i class='fas fa-check'></i>";
-    completedButton.classList.add("complete-btn");
-    todoDiv.appendChild(completedButton);
-
-    // Check trash button
-    const trashButton = document.createElement("button");
-    trashButton.innerHTML = "<i class='fas fa-trash'></i>";
-    trashButton.classList.add("trash-btn");
-    todoDiv.appendChild(trashButton);
-
-    // Append to list
-    todoList.appendChild(todoDiv);
-
-    // Clear todo input value
+    localStorage.setItem(`todo-${todoInput.value}`, todoInput.value);
+    createTodo(todoInput.value, false);
     todoInput.value = "";
   }
+}
+
+function createTodo(todo, isCompleted) {
+  const todoDiv = document.createElement("div");
+  todoDiv.classList.add("todo");
+
+  // Create li
+  const newTodo = document.createElement("li");
+  newTodo.innerText = todo;
+  newTodo.classList.add("todo-item");
+  todoDiv.appendChild(newTodo);
+  //
+  isCompleted ? todoDiv.classList.add("completed") : "";
+
+  // Check mark button
+  const completedButton = document.createElement("button");
+  completedButton.innerHTML = "<i class='fas fa-check'></i>";
+  completedButton.classList.add("complete-btn");
+  todoDiv.appendChild(completedButton);
+
+  // Check trash button
+  const trashButton = document.createElement("button");
+  trashButton.innerHTML = "<i class='fas fa-trash'></i>";
+  trashButton.classList.add("trash-btn");
+  todoDiv.appendChild(trashButton);
+
+  // Append to list
+  todoList.appendChild(todoDiv);
 }
 
 function deleteCheck(e) {
@@ -381,6 +381,7 @@ function deleteCheck(e) {
   if (item.classList.contains("trash-btn")) {
     todo.classList.add("fall");
     todo.addEventListener("transitionend", () => {
+      localStorage.removeItem(`todo-${todo.children[0].innerText}`);
       todo.remove();
     });
   }
@@ -388,6 +389,32 @@ function deleteCheck(e) {
   // check mark
   if (item.classList.contains("complete-btn")) {
     todo.classList.toggle("completed");
+
+    let keys = Object.keys(localStorage);
+    if (todo.classList.contains("completed")) {
+      console.log(todo.children[0].innerText);
+      keys.forEach((key) => {
+        if (
+          key.startsWith("todo-") &&
+          key.slice(5) === todo.children[0].innerText
+        ) {
+          let itemLocal = localStorage.getItem(key);
+          localStorage.setItem(`${key}-completed`, itemLocal);
+          localStorage.removeItem(key);
+        }
+      });
+    } else {
+      keys.forEach((key) => {
+        if (
+          key.startsWith("todo-") &&
+          key.slice(5).replace("-completed", "") === todo.children[0].innerText
+        ) {
+          let itemLocal = localStorage.getItem(key);
+          localStorage.removeItem(key);
+          localStorage.setItem(key.replace("-completed", ""), itemLocal);
+        }
+      });
+    }
   }
 }
 
@@ -416,4 +443,22 @@ function filterTodo(e) {
         break;
     }
   });
+}
+
+function setTodos() {
+  let keys = Object.keys(localStorage);
+  keys.forEach((key) => {
+    if (key.startsWith("todo-")) {
+      let item = localStorage.getItem(key);
+
+      key.endsWith("-completed")
+        ? createTodo(item, true)
+        : createTodo(item, false);
+
+      console.log(item);
+    }
+  });
+  // todos.forEach((todo) => {
+  //   createTodo(todo);
+  // });
 }
