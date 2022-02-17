@@ -79,27 +79,29 @@ function addZero(n) {
 function setBackGroundGreeting() {
   let today = new Date(),
     hour = today.getHours();
+  hour = 21;
 
   if (hour >= 4 && hour < 12) {
     // Morning
-    document.body.style.background = "url(../img/morning.jpg) no-repeat";
+    document.body.style.background = "url(../img/morning-1.jpg) no-repeat";
     greeting.textContent = "Good Morning";
   } else if (hour >= 12 && hour < 16) {
     // Afternoon
-    document.body.style.background = "url(../img/day.jpg) no-repeat top/100%";
+    document.body.style.background = "url(../img/day-2.jpg) no-repeat top/100%";
     greeting.textContent = "Good Afternoon";
   } else if (hour >= 16 && hour < 20) {
     // Evening
     document.body.style.background =
-      "url(../img/evening.jpg) no-repeat top/100%";
+      "url(../img/evening-2.jpg) no-repeat top/100%";
     greeting.textContent = "Good Evening";
   } else {
-    document.body.style.background = "url(../img/night.jpg) no-repeat top/100%";
+    document.body.style.background =
+      "url(../img/night-3.jpg) no-repeat top/100%";
     greeting.textContent = "Good Evening";
     document.body.style.color = "white";
   }
 
-  setTimeout(setBackGroundGreeting, 1000 * 60);
+  setTimeout(setBackGroundGreeting, 1000 * 60 * 60);
 }
 
 // Get Name
@@ -381,7 +383,12 @@ function deleteCheck(e) {
   if (item.classList.contains("trash-btn")) {
     todo.classList.add("fall");
     todo.addEventListener("transitionend", () => {
-      localStorage.removeItem(`todo-${todo.children[0].innerText}`);
+      todo.classList.contains("completed")
+        ? localStorage.removeItem(
+            `todo-${todo.children[0].innerText}-completed`
+          )
+        : localStorage.removeItem(`todo-${todo.children[0].innerText}`);
+
       todo.remove();
     });
   }
@@ -390,31 +397,34 @@ function deleteCheck(e) {
   if (item.classList.contains("complete-btn")) {
     todo.classList.toggle("completed");
 
-    let keys = Object.keys(localStorage);
-    if (todo.classList.contains("completed")) {
-      console.log(todo.children[0].innerText);
-      keys.forEach((key) => {
-        if (
-          key.startsWith("todo-") &&
-          key.slice(5) === todo.children[0].innerText
-        ) {
-          let itemLocal = localStorage.getItem(key);
-          localStorage.setItem(`${key}-completed`, itemLocal);
-          localStorage.removeItem(key);
-        }
-      });
-    } else {
-      keys.forEach((key) => {
-        if (
-          key.startsWith("todo-") &&
-          key.slice(5).replace("-completed", "") === todo.children[0].innerText
-        ) {
-          let itemLocal = localStorage.getItem(key);
-          localStorage.removeItem(key);
-          localStorage.setItem(key.replace("-completed", ""), itemLocal);
-        }
-      });
-    }
+    todo.addEventListener("transitionend", () => {
+      let keys = Object.keys(localStorage);
+      if (todo.classList.contains("completed")) {
+        keys.forEach((key) => {
+          if (
+            key.startsWith("todo-") &&
+            key.slice(5) === todo.children[0].innerText
+          ) {
+            let itemLocal = localStorage.getItem(key);
+            localStorage.setItem(`${key}-completed`, itemLocal);
+
+            localStorage.removeItem(`todo-${itemLocal}`);
+          }
+        });
+      } else {
+        keys.forEach((key) => {
+          if (
+            key.startsWith("todo-") &&
+            key.replace("todo-", "").replace("-completed", "") ===
+              todo.children[0].innerText
+          ) {
+            let itemLocal = localStorage.getItem(key);
+            localStorage.setItem(key.replace("-completed", ""), itemLocal);
+            localStorage.removeItem(`todo-${itemLocal}-completed`);
+          }
+        });
+      }
+    });
   }
 }
 

@@ -237,8 +237,9 @@ p.temperature-description {
 }
 
 .temperature-section-big {
-  height: 45%;
+  height: 47%;
   width: 100%;
+  padding: 0 12px;
   justify-content: space-around;
 }
 .hidden,
@@ -272,7 +273,8 @@ p.temperature-description {
 }
 
 .weather-niceties {
-  height: 32%;
+  height: 30%;
+  padding: 0 12px 5px;
   letter-spacing: 0.8px;
   font-size: 1.1rem;
   justify-content: space-around;
