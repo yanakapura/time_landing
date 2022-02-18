@@ -6,36 +6,42 @@
 
 body {
   font-family: "Zen Kaku Gothic Antique", sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
   text-align: center;
-  height: 100vh;
   color: black;
+  height: 100vh;
   /* color: white; */
 
   scrollbar-width: 5px;
   scrollbar-color: rgba(128, 128, 128, 0.5) rgba(224, 224, 224, 0.719);
 }
 
+.main {
+  height: 100vh;
+  width: auto;
+  flex-direction: column;
+}
+
 #time {
-  font-size: 8rem;
+  font-size: 8em;
 }
 
 h1 {
-  margin-bottom: 3rem;
+  margin-bottom: 3em;
+  font-size: 2em;
 }
 
 h2 {
   margin-bottom: 0.5rem;
   opacity: 0.6;
+  font-size: 1.5em;
 
   /* font-family: "Quicksand", sans-serif; */
 }
 
 #focus {
   width: fit-content;
+  max-width: 250px;
   margin: 0 auto;
 }
 
@@ -44,7 +50,6 @@ h2 {
 #focus:focus,
 #focus:active {
   outline: none;
-  border-bottom: 2px solid black;
 }
 
 .switch-button {
@@ -208,8 +213,8 @@ p.temperature-description {
   top: 15px;
   right: 20px;
   flex-direction: column;
-  width: 30%;
-  height: 27%;
+  width: 450px;
+  height: 190px;
   display: none;
 
   background: rgba(255, 255, 255, 0.55);
@@ -269,14 +274,14 @@ p.temperature-description {
 .temperature-description-big {
   min-width: 20%;
   max-width: 30%;
-  font-size: 1.2rem;
+  font-size: 0.9em;
 }
 
 .weather-niceties {
   height: 30%;
   padding: 0 12px 5px;
   letter-spacing: 0.8px;
-  font-size: 1.1rem;
+  font-size: 0.8em;
   justify-content: space-around;
 }
 
@@ -335,7 +340,7 @@ p.temperature-description {
 .task-icon::before {
   content: "";
   background: rgba(255, 255, 255, 0.6);
-  z-index: -1;
+  z-index: 0;
   height: 60px;
   width: 60px;
   position: absolute;
@@ -349,7 +354,7 @@ p.temperature-description {
   transform: translate(0px, 19px);
 }
 
-.todo-list-contaiter {
+.todo-list-container {
   overflow: hidden;
   color: black;
   /* display: none; */
@@ -417,7 +422,7 @@ form input:focus {
 
 .todo-input {
   border-radius: 10px 0 0 10px;
-  font-size: 1rem;
+  font-size: 1em;
   padding: 6.5px 10px;
   padding-right: 0;
   font-family: inherit;
@@ -556,10 +561,4 @@ select {
 
 .select:hover::after {
   color: rgb(131, 131, 131);
-}
-
-@media (max-width: 700px) {
-  #time {
-    font-size: 6rem;
-  }
 }

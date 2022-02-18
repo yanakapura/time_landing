@@ -11,10 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style-adaptive.css" />
     <link rel="shortcut icon" href="#">
     <title>Welcome</title>
   </head>
   <body>
+
+  <div class="main flex-center">
 
     <div class="time-section">
       <time id="time"></time>
@@ -23,8 +26,8 @@
         <span id="name" contenteditable="true"></span>
       </h1>
 
-      <h2>What is your focus for today?</h2>
-      <h2 id="focus" contenteditable="true"></h2>
+      <h2 class="focus">What is your focus for today?</h2>
+      <h2 class="focus" id="focus" contenteditable="true"></h2>
     </div>
 
     <div class="switch-button">
@@ -94,7 +97,7 @@
       <div class="task-icon">
         <i class="fas fa-tasks"></i>
       </div>
-      <div class="todo-list-contaiter hidden-todo">
+      <div class="todo-list-container hidden-todo">
         <div class="todo-close-section">
         <div class="todo-close-container">
         <div class="todo-close flex-center">
@@ -117,16 +120,12 @@
         <ul class="todo-list">
 
         </ul>
-        <!-- <div class="task flex-center">
-          <p class="task-text">Learn JavaScript</p>
-          <i class="fas fa-check"></i>
-          <i class="fas fa-xmark"></i> -->
-        <!-- <input type="text" class="task-text" > -->
         </div>
       </div>
       </div>
     </div>
 
+  </div>
 
     <!-- <script src='https://kit.fontawesome.com/a076d05399.js' 
     crossorigin='anonymous'></script> -->

@@ -25,7 +25,7 @@ const time = document.querySelector("#time"),
   todoCloseBtn = document.querySelector(".todo-close"),
   todoList = document.querySelector(".todo-list"),
   todoListSection = document.querySelector(".todo-list-section"),
-  todoListContainer = document.querySelector(".todo-list-contaiter"),
+  todoListContainer = document.querySelector(".todo-list-container"),
   todoIcon = document.querySelector(".task-icon"),
   filterOption = document.querySelector(".filter-todo");
 
@@ -79,29 +79,38 @@ function addZero(n) {
 function setBackGroundGreeting() {
   let today = new Date(),
     hour = today.getHours();
-  hour = 21;
+  hour = 14;
 
   if (hour >= 4 && hour < 12) {
     // Morning
-    document.body.style.background = "url(../img/morning-1.jpg) no-repeat";
+    document.querySelector(".main").style.background =
+      "url(../img/morning-1.jpg) center no-repeat";
     greeting.textContent = "Good Morning";
   } else if (hour >= 12 && hour < 16) {
     // Afternoon
-    document.body.style.background = "url(../img/day-2.jpg) no-repeat top/100%";
+    document.querySelector(".main").style.background =
+      "url(../img/day-2.jpg) no-repeat center";
+    let focusArr = document.querySelectorAll(".focus");
+    focusArr.forEach(
+      (el) =>
+        (el.style.color = window.matchMedia("(max-width: 768px)").matches
+          ? "black"
+          : "white")
+    );
     greeting.textContent = "Good Afternoon";
   } else if (hour >= 16 && hour < 20) {
     // Evening
-    document.body.style.background =
-      "url(../img/evening-2.jpg) no-repeat top/100%";
+    document.querySelector(".main").style.background =
+      "url(../img/evening-2.jpg) center no-repeat"; // /time_landing
     greeting.textContent = "Good Evening";
   } else {
-    document.body.style.background =
-      "url(../img/night-3.jpg) no-repeat top/100%";
+    document.querySelector(".main").style.background =
+      "url(../img/night-1.jpg) no-repeat center";
     greeting.textContent = "Good Evening";
     document.body.style.color = "white";
   }
-
-  setTimeout(setBackGroundGreeting, 1000 * 60 * 60);
+  document.querySelector(".main").style.backgroundSize = "cover";
+  setTimeout(setBackGroundGreeting, 1000 * 60);
 }
 
 // Get Name
