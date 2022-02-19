@@ -6,11 +6,12 @@
 
 body {
   font-family: "Zen Kaku Gothic Antique", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
+  /* font-family: "Roboto", sans-serif; */
 
   text-align: center;
   color: black;
   height: 100vh;
-  /* color: white; */
 
   scrollbar-width: 5px;
   scrollbar-color: rgba(128, 128, 128, 0.5) rgba(224, 224, 224, 0.719);
@@ -29,14 +30,14 @@ body {
 h1 {
   margin-bottom: 3em;
   font-size: 2em;
+  font-family: "Roboto", sans-serif;
 }
 
 h2 {
   margin-bottom: 0.5rem;
   opacity: 0.6;
   font-size: 1.5em;
-
-  /* font-family: "Quicksand", sans-serif; */
+  font-family: "Roboto", sans-serif;
 }
 
 #focus {
@@ -251,7 +252,6 @@ p.temperature-description {
 .hidden-flex,
 .hidden-todo {
   display: none;
-  /* opacity: 0; */
 }
 
 .temperature-degree-section {
@@ -302,7 +302,7 @@ p.temperature-description {
   bottom: 15px;
   left: 20px;
 
-  font-size: 2rem;
+  font-size: 2em;
   cursor: pointer;
   color: white;
   transition: transform 0.1s ease-in;
@@ -320,10 +320,6 @@ p.temperature-description {
   position: absolute;
   bottom: 15px;
   right: 20px;
-  /* max-height: 285px; */
-
-  /* overflow: auto; */
-  /* transition: transform 0.1s ease-in; */
 }
 
 .task-icon {
@@ -357,7 +353,6 @@ p.temperature-description {
 .todo-list-container {
   overflow: hidden;
   color: black;
-  /* display: none; */
 }
 
 .todo-close {
@@ -394,15 +389,12 @@ p.temperature-description {
 }
 
 form {
-  /* background-color: white; */
   border-radius: 15px;
   width: 305px;
   margin-left: 8px;
-  /* padding: 8px 13px; */
 }
 
 form input {
-  /* width: 82%; */
   width: 148px;
 }
 
@@ -411,7 +403,6 @@ form button {
   font-size: 1.2rem;
   font-family: inherit;
   border: none;
-  /* background: transparent; */
   background-color: rgba(255, 255, 255, 0.99);
 }
 
@@ -438,18 +429,11 @@ form input:focus {
   padding: 4px 10px;
 }
 
-.todo-button:hover {
-  /* /////////////////////////// */
-  /* Добавить */
-  /* /////////////////////////// */
-}
-
 .todo-button i {
   font-size: 1.1rem;
 }
 
 .todo-list {
-  /* min-width: 30%; */
   list-style: none;
   margin-top: 5px;
 
@@ -473,7 +457,6 @@ form input:focus {
   width: 300px;
   margin: 0.5rem;
   background: rgba(255, 255, 255, 0.8);
-  /* color: black; */
   border-radius: 12px;
 
   display: flex;
@@ -486,7 +469,6 @@ form input:focus {
   text-align: start;
   flex: 1;
   padding: 8px 13px;
-  /* font-size: 1.1em; */
 }
 
 .trash-btn,
@@ -535,13 +517,10 @@ select {
 
   font-family: inherit;
   font-size: 0.9rem;
-  /* width: 10rem; */
   cursor: pointer;
-  /* margin-bottom: 9px; */
 }
 
 .select {
-  /* margin: 1rem; */
   position: relative;
   overflow: hidden;
 }

@@ -38,6 +38,42 @@ let wind;
 let airHumidity;
 let pressure;
 var player;
+
+// Event listeners and function calls
+name.addEventListener("keypress", setName);
+name.addEventListener("blur", setName);
+focus.addEventListener("keypress", setFocus);
+focus.addEventListener("blur", setFocus);
+switchButton.addEventListener("click", setTime);
+switchButton.addEventListener("click", (e) =>
+  localStorage.setItem("timeType", e.target.checked)
+);
+todoIcon.addEventListener("click", showCloseTodo);
+todoCloseBtn.addEventListener("click", showCloseTodo);
+todoButton.addEventListener("click", addTodo);
+todoList.addEventListener("click", deleteCheck);
+filterOption.addEventListener("click", filterTodo);
+
+document
+  .querySelector(".todo-close-section")
+  .addEventListener("mouseover", () => {
+    todoCloseBtn.classList.add("up");
+  });
+document
+  .querySelector(".todo-close-section")
+  .addEventListener("mouseleave", () => {
+    todoCloseBtn.classList.remove("up");
+  });
+
+showTime();
+setBackGroundGreeting();
+getName();
+getFocus();
+getTimeType();
+setTime();
+setWeather();
+setTodos();
+
 // Inject YouTube API script
 var tag = document.createElement("script");
 tag.src = "https://www.youtube.com/player_api";
@@ -79,17 +115,17 @@ function addZero(n) {
 function setBackGroundGreeting() {
   let today = new Date(),
     hour = today.getHours();
-  hour = 14;
+  hour = 21;
 
   if (hour >= 4 && hour < 12) {
     // Morning
     document.querySelector(".main").style.background =
-      "url(../img/morning-1.jpg) center no-repeat";
+      "url(../img/morning.jpg) center no-repeat";
     greeting.textContent = "Good Morning";
   } else if (hour >= 12 && hour < 16) {
     // Afternoon
     document.querySelector(".main").style.background =
-      "url(../img/day-2.jpg) no-repeat center";
+      "url(../img/day.jpg) no-repeat center";
     let focusArr = document.querySelectorAll(".focus");
     focusArr.forEach(
       (el) =>
@@ -101,11 +137,11 @@ function setBackGroundGreeting() {
   } else if (hour >= 16 && hour < 20) {
     // Evening
     document.querySelector(".main").style.background =
-      "url(../img/evening-2.jpg) center no-repeat"; // /time_landing
+      "url(../img/evening.jpg) center no-repeat"; // /time_landing
     greeting.textContent = "Good Evening";
   } else {
     document.querySelector(".main").style.background =
-      "url(../img/night-1.jpg) no-repeat center";
+      "url(../img/night.jpg) no-repeat center";
     greeting.textContent = "Good Evening";
     document.body.style.color = "white";
   }
@@ -168,58 +204,22 @@ function getTimeType() {
   }
 }
 
-name.addEventListener("keypress", setName);
-name.addEventListener("blur", setName);
-focus.addEventListener("keypress", setFocus);
-focus.addEventListener("blur", setFocus);
-switchButton.addEventListener("click", setTime);
-switchButton.addEventListener("click", (e) =>
-  localStorage.setItem("timeType", e.target.checked)
-);
-todoIcon.addEventListener("click", showCloseTodo);
-todoCloseBtn.addEventListener("click", showCloseTodo);
-todoButton.addEventListener("click", addTodo);
-todoList.addEventListener("click", deleteCheck);
-filterOption.addEventListener("click", filterTodo);
-
-document
-  .querySelector(".todo-close-section")
-  .addEventListener("mouseover", () => {
-    todoCloseBtn.classList.add("up");
-  });
-document
-  .querySelector(".todo-close-section")
-  .addEventListener("mouseleave", () => {
-    todoCloseBtn.classList.remove("up");
-  });
-
-showTime();
-setBackGroundGreeting();
-getName();
-getFocus();
-getTimeType();
-setTime();
-setWeather();
-setTodos();
-
 function setTime() {
   setTimeout(function () {
     if (chechbox.checked) {
-      label12h.style.color = "rgb(146, 146, 146)";
+      label12h.style.color = "rgb(0, 0, 0, 0.5)";
       switchButton.style.color = "black";
       showAmPm = false;
       timeType = false;
     } else {
       label12h.style.color = "black";
-      switchButton.style.color = "rgb(146, 146, 146)";
+      switchButton.style.color = "rgb(0, 0, 0, 0.6)";
       showAmPm = true;
       timeType = true;
     }
     showTime();
   }, 0);
 }
-
-// window.addEventListener("load", setWeather);
 
 function setWeather() {
   // weatherapi.com
@@ -251,7 +251,6 @@ function setWeather() {
           const { tz_id } = data.location;
           // Set DOM elements from API
           temperatureDegree.textContent = temp_c;
-          // condition.text = "qqqqq qqq rtk,g rllvl qqq qqqq qqq";
           temperatureDescription.textContent = condition.text;
           locationTimeZone.textContent = tz_id.slice(tz_id.indexOf("/") + 1);
           timeZone = tz_id;
@@ -304,15 +303,10 @@ document.querySelector(".weather").addEventListener("click", () => {
   hiddenArr.forEach((el) => (el.style.display = "block"));
   const hiddenFlexArr = [...document.querySelectorAll(".hidden-flex")];
   hiddenFlexArr.forEach((el) => (el.style.display = "flex"));
-
-  // console.log((document.querySelectorAll(".hidden").style.display = "block"));
-  // document.querySelectorAll(".hidden").style.opacity = "1";
 });
 document.querySelector("#weather-big").addEventListener("click", () => {
   document.querySelector("#weather-big").style.display = "none";
   document.querySelector(".weather").style.display = "block";
-  // document.querySelectorAll(".hidden").style.display = "none";
-  // document.querySelectorAll(".hidden").style.display = "none";
 });
 
 // this function gets called when API is ready to use
@@ -477,7 +471,4 @@ function setTodos() {
       console.log(item);
     }
   });
-  // todos.forEach((todo) => {
-  //   createTodo(todo);
-  // });
 }

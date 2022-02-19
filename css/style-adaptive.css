@@ -1,7 +1,214 @@
-/* xxs */
-@media (max-width: 375px) {
-  #weather-big {
+/* lg */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  body {
     font-size: 14px;
+  }
+  #time {
+    font-size: 6rem;
+  }
+  #weather-big {
+    font-size: 18px;
+    width: 400px;
+    height: 170px;
+  }
+  .task-icon,
+  .task-icon::before {
+    height: 55px;
+    width: 55px;
+  }
+  .task-icon i {
+    transform: translate(0px, 18px);
+  }
+  .select::after {
+    bottom: 7px;
+  }
+}
+
+/* md */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  body {
+    font-size: 13px;
+  }
+  h1 {
+    margin-bottom: 2em;
+  }
+  h2 {
+    font-size: 1.3em;
+  }
+  #time {
+    font-size: 5rem;
+  }
+  #focus {
+    max-width: 220px;
+  }
+  .switch-button {
+    border-radius: 20px;
+    width: 90px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding-right: 40px;
+  }
+  .switch-button::before {
+    width: 45px;
+  }
+  .switch-button-checkbox:checked + .switch-button-label:before {
+    transform: translateX(40px);
+  }
+  .switch-button-checkbox + .switch-button-label:before {
+    border-radius: 20px;
+  }
+
+  #weather-big {
+    font-size: 17px;
+    width: 370px;
+    height: 160px;
+  }
+
+  .task-icon,
+  .task-icon::before {
+    height: 50px;
+    width: 50px;
+  }
+  .task-icon i {
+    transform: translate(0px, 17px);
+  }
+  .todo-list {
+    max-height: 164px;
+  }
+  form {
+    width: 250px;
+  }
+  .todo-input {
+    width: 115px;
+    padding: 5px 9px;
+    padding-right: 0;
+    height: 35px;
+  }
+  .todo-button {
+    padding: 3.5px 9px;
+  }
+  select {
+    font-size: 0.85em;
+    padding: 4px 6px;
+    height: 35px;
+    width: 90px;
+  }
+  .select::after {
+    bottom: 8px;
+  }
+  .todo {
+    width: 243px;
+  }
+  .todo li {
+    padding: 6px 12px;
+  }
+  .trash-btn,
+  .complete-btn {
+    padding: 6px 12px;
+    padding-left: 0;
+  }
+}
+
+/* sm */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  body {
+    font-size: 12px;
+  }
+  h1 {
+    margin-bottom: 2rem;
+  }
+  .main {
+    height: auto;
+  }
+  .time-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #time {
+    font-size: 4rem;
+  }
+  .switch-button {
+    border-radius: 20px;
+    width: 90px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding-right: 40px;
+  }
+  .switch-button::before {
+    width: 45px;
+  }
+  .switch-button-checkbox:checked + .switch-button-label:before {
+    transform: translateX(40px);
+  }
+  .switch-button-checkbox + .switch-button-label:before {
+    border-radius: 20px;
+  }
+  p.temperature-description {
+    font-size: 0.85em;
+  }
+  #weather-big {
+    font-size: 16px;
+    width: 350px;
+    height: 150px;
+  }
+  .temperature-section-big {
+    font-size: 0.9em;
+  }
+  .music {
+    font-size: 2.2em;
+  }
+  .todo-list-container {
+    margin: 10px 0;
+  }
+  .todo-list-section {
+    position: initial;
+    font-size: 1.2em;
+  }
+  .task-icon {
+    display: none !important;
+  }
+  .todo-close-section {
+    display: none !important;
+  }
+  .todo-list {
+    max-height: 260px;
+  }
+  form {
+    width: 400px;
+  }
+  .todo-input {
+    width: 245px;
+    padding: 7px 12px;
+    padding-right: 0;
+    height: 40px;
+  }
+  .todo-button {
+    padding: 6.25px 12px;
+  }
+  select {
+    padding: 7px 10px;
+    height: 40px;
+    width: 120px;
+    margin-left: 8px;
+  }
+  .select::after {
+    bottom: 9px;
+  }
+  .todo {
+    width: 400px;
+  }
+  .todo li {
+    padding: 11px 12px;
+  }
+  .trash-btn,
+  .complete-btn {
+    padding: 6px 12px;
+    padding-left: 0;
+  }
+  .hidden-todo {
+    display: block;
   }
 }
 
@@ -30,15 +237,41 @@
     left: unset;
     bottom: 15px;
     right: 20px;
+    border-radius: 20px;
+    width: 90px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding-right: 40px;
+  }
+  .switch-button::before {
+    width: 45px;
+  }
+  .switch-button-checkbox:checked + .switch-button-label:before {
+    transform: translateX(40px);
+  }
+  .switch-button-checkbox + .switch-button-label:before {
+    border-radius: 20px;
+  }
+  .location-timezone {
+    font-size: 1.2em;
+  }
+  p.temperature-description {
+    font-size: 1em;
   }
   #weather-big {
-    font-size: 17px;
+    font-size: 18px;
     width: calc(100% - 40px);
     height: 160px;
     /* display: block; */
   }
   .temperature-section-big {
     font-size: 0.9em;
+  }
+  .weather-niceties {
+    letter-spacing: 0.1px;
+  }
+  .music {
+    font-size: 2.2em;
   }
   .todo-list-container {
     margin: 10px 0;
@@ -67,7 +300,7 @@
     height: 40px;
   }
   .todo-button {
-    padding: 6px 12px;
+    padding: 6.25px 12px;
     transform: translateX(-1px);
   }
   select {
@@ -90,164 +323,43 @@
   }
 }
 
-/* sm */
-@media (min-width: 576px) and (max-width: 767.98px) {
+/* xxs */
+@media (max-width: 375px) {
   body {
-    font-size: 12px;
-  }
-  h1 {
-    margin-bottom: 2rem;
-  }
-  .main {
-    height: auto;
-  }
-  .time-section {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    font-size: 10.5px;
   }
   #time {
-    font-size: 4rem;
+    font-size: 3rem;
   }
+
   #weather-big {
     font-size: 16px;
-    width: 350px;
-    height: 150px;
   }
-  .temperature-section-big {
-    font-size: 0.9em;
+  #weather-big i {
+    padding: 0 5px;
   }
-  .todo-list-container {
-    margin: 10px 0;
+  .weather-niceties {
+    font-size: 0.75em;
+    letter-spacing: 0.1px;
   }
-  .todo-list-section {
-    position: initial;
-    font-size: 1.2em;
-  }
-  .task-icon {
-    display: none !important;
-  }
-  .todo-close-section {
-    display: none !important;
-  }
-  .todo-list {
-    max-height: 260px;
-  }
-  form {
-    width: 400px;
-  }
-  .todo-input {
-    width: 245px;
-    padding: 7px 12px;
-    padding-right: 0;
-    height: 40px;
-  }
-  .todo-button {
-    padding: 6px 12px;
-  }
-  select {
-    padding: 7px 10px;
-    height: 40px;
-    width: 120px;
-    margin-left: 8px;
-  }
-  .select::after {
-    bottom: 9px;
-  }
+  form,
   .todo {
-    width: 400px;
-  }
-  .todo li {
-    padding: 11px 12px;
-  }
-  .trash-btn,
-  .complete-btn {
-    padding: 6px 12px;
-    padding-left: 0;
-  }
-  .hidden-todo {
-    display: block;
-  }
-}
-
-/* md */
-@media (min-width: 768px) and (max-width: 991.98px) {
-  body {
-    font-size: 13px;
-  }
-  h1 {
-    margin-bottom: 2em;
-  }
-  h2 {
-    font-size: 1.3em;
-  }
-  #time {
-    font-size: 5rem;
-  }
-  #focus {
-    max-width: 220px;
-  }
-  #weather-big {
-    font-size: 17px;
-    width: 370px;
-    height: 160px;
-  }
-  .todo-list {
-    max-height: 164px;
-  }
-  form {
-    width: 250px;
+    width: 270px;
   }
   .todo-input {
-    width: 115px;
-    padding: 5px 9px;
+    width: 137px;
+    padding: 7px 10px;
     padding-right: 0;
-    height: 35px;
   }
   .todo-button {
-    padding: 3.5px 9px;
+    padding: 6px 10px;
   }
   select {
-    font-size: 0.85em;
-    padding: 4px 6px;
-    height: 35px;
+    font-size: 0.8em;
+    padding: 5px 5px;
     width: 90px;
   }
   .select::after {
-    bottom: 8px;
+    bottom: 9.5px;
   }
-  .todo {
-    width: 230px;
-  }
-  .todo li {
-    padding: 6px 12px;
-  }
-  .trash-btn,
-  .complete-btn {
-    padding: 6px 12px;
-    padding-left: 0;
-  }
-}
-
-/* lg */
-@media (min-width: 992px) and (max-width: 1199.98px) {
-  body {
-    font-size: 14px;
-  }
-  #time {
-    font-size: 6rem;
-  }
-  #weather-big {
-    font-size: 18px;
-    width: 400px;
-    height: 170px;
-  }
-  .select::after {
-    bottom: 7px;
-  }
-}
-
-/* xl */
-@media (min-width: 1200px) {
 }
