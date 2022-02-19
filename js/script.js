@@ -232,7 +232,7 @@ function setWeather() {
       long = position.coords.longitude;
       lat = position.coords.latitude;
       lang = "en"; //ru
-      const api = `http://api.weatherapi.com/v1/current.json?key=b76b0a3174694eddb11162855221402&q=${lat},${long}&aqi=no&lang=${lang}`;
+      const api = `https://api.weatherapi.com/v1/current.json?key=b76b0a3174694eddb11162855221402&q=${lat},${long}&aqi=no&lang=${lang}`;
 
       fetch(api)
         .then((response) => {
