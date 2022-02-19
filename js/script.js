@@ -120,12 +120,12 @@ function setBackGroundGreeting() {
   if (hour >= 4 && hour < 12) {
     // Morning
     document.querySelector(".main").style.background =
-      "url(../img/morning.jpg) center no-repeat";
+      "url(../time_landing/img/morning.jpg) center no-repeat";
     greeting.textContent = "Good Morning";
   } else if (hour >= 12 && hour < 16) {
     // Afternoon
     document.querySelector(".main").style.background =
-      "url(../img/day.jpg) no-repeat center";
+      "url(../time_landing/img/day.jpg) no-repeat center";
     let focusArr = document.querySelectorAll(".focus");
     focusArr.forEach(
       (el) =>
@@ -137,11 +137,11 @@ function setBackGroundGreeting() {
   } else if (hour >= 16 && hour < 20) {
     // Evening
     document.querySelector(".main").style.background =
-      "url(../img/evening.jpg) center no-repeat"; // /time_landing
+      "url(../time_landing/img/evening.jpg) center no-repeat"; // /time_landing
     greeting.textContent = "Good Evening";
   } else {
     document.querySelector(".main").style.background =
-      "url(../img/night.jpg) no-repeat center";
+      "url(../time_landing/img/night.jpg) no-repeat center";
     greeting.textContent = "Good Evening";
     document.body.style.color = "white";
   }
