@@ -115,7 +115,6 @@ function addZero(n) {
 function setBackGroundGreeting() {
   let today = new Date(),
     hour = today.getHours();
-  hour = 21;
 
   if (hour >= 4 && hour < 12) {
     // Morning
